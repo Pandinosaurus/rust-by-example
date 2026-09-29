@@ -41,7 +41,7 @@ or for any other generic containers. `fmt::Debug` must then be used for these
 generic cases.
 
 This is not a problem though because for any new *container* type which is
-*not* generic,`fmt::Display` can be implemented.
+*not* generic, `fmt::Display` can be implemented.
 
 ```rust,editable
 use std::fmt; // Import `fmt`
@@ -66,7 +66,7 @@ struct Point2D {
     y: f64,
 }
 
-// Similarly, implement `Display` for `Point2D`
+// Similarly, implement `Display` for `Point2D`.
 impl fmt::Display for Point2D {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         // Customize so only `x` and `y` are denoted.
@@ -94,16 +94,16 @@ fn main() {
     println!("Display: {}", point);
     println!("Debug: {:?}", point);
 
-    // Error. Both `Debug` and `Display` were implemented, but `{:b}`
-    // requires `fmt::Binary` to be implemented. This will not work.
+    // The following line would not compile: both `Debug` and `Display`
+    // were implemented, but `{:b}` requires `fmt::Binary` to be
+    // implemented, which it hasn't been for `Point2D`.
     // println!("What does Point2D look like in binary: {:b}?", point);
 }
 ```
 
-So, `fmt::Display` has been implemented but `fmt::Binary` has not, and
-therefore cannot be used. `std::fmt` has many such [`traits`][traits] and
-each requires its own implementation. This is detailed further in
-[`std::fmt`][fmt].
+So, `fmt::Display` has been implemented but `fmt::Binary` has not, and therefore
+cannot be used. `std::fmt` has many such [`traits`][traits] and each requires
+its own implementation. This is detailed further in [`std::fmt`][fmt].
 
 ### Activity
 
@@ -112,9 +112,19 @@ guide to add a `Complex` struct to the example. When printed in the same
 way, the output should be:
 
 ```txt
-Display: 3.3 + 7.2i
+Display: 3.3 +7.2i
 Debug: Complex { real: 3.3, imag: 7.2 }
+
+Display: 4.7 -2.3i
+Debug: Complex { real: 4.7, imag: -2.3 }
 ```
+
+Bonus: Add a space after the `+`/`-` signs.
+
+Hints in case you get stuck:
+
+- Check the documentation for [`Sign/#/0`][fmt_sign0] in `std::fmt`.
+- Bonus: Check [`if`-`else`][if_else] branching and the [`abs`][f64_abs] function.
 
 ### See also:
 
@@ -122,7 +132,10 @@ Debug: Complex { real: 3.3, imag: 7.2 }
 [`trait`][traits], and [`use`][use]
 
 [derive]: ../../trait/derive.md
+[f64_abs]: https://doc.rust-lang.org/std/primitive.f64.html#method.abs
 [fmt]: https://doc.rust-lang.org/std/fmt/
+[fmt_sign0]: https://doc.rust-lang.org/std/fmt/#sign0
+[if_else]: ../../flow_control/if_else.md
 [macros]: ../../macros.md
 [structs]: ../../custom_types/structs.md
 [traits]: https://doc.rust-lang.org/std/fmt/#formatting-traits

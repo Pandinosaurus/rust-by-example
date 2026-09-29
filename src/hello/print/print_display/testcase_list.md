@@ -24,18 +24,17 @@ struct List(Vec<i32>);
 
 impl fmt::Display for List {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        // Extract the value using tuple indexing,
-        // and create a reference to `vec`.
+        // Create a reference to the Vec<i32> stored in the List struct.
         let vec = &self.0;
 
         write!(f, "[")?;
 
         // Iterate over `v` in `vec` while enumerating the iteration
-        // count in `count`.
-        for (count, v) in vec.iter().enumerate() {
+        // index in `index`.
+        for (index, v) in vec.iter().enumerate() {
             // For every element except the first, add a comma.
             // Use the ? operator to return on errors.
-            if count != 0 { write!(f, ", ")?; }
+            if index != 0 { write!(f, ", ")?; }
             write!(f, "{}", v)?;
         }
 
@@ -52,7 +51,8 @@ fn main() {
 
 ### Activity
 
-Try changing the program so that the index of each element in the vector is also printed. The new output should look like this:
+Try changing the program so that the index of each element in the vector is also
+printed. The new output should look like this:
 
 ```rust,ignore
 [0: 1, 1: 2, 2: 3]

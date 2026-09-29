@@ -1,9 +1,6 @@
 # Rust By Example
 
-[![Build Status][travis-badge]][travis-repo]
-
-[travis-badge]: https://travis-ci.com/rust-lang/rust-by-example.svg?branch=master
-[travis-repo]: https://travis-ci.com/rust-lang/rust-by-example
+[![Build Status](https://github.com/rust-lang/rust-by-example/actions/workflows/rbe.yml/badge.svg)](https://github.com/rust-lang/rust-by-example/actions)
 
 Learn Rust with examples (Live code editor included)
 
@@ -15,11 +12,11 @@ to read it online.
 If you'd like to read it locally, [install Rust], and then:
 
 ```bash
-$ git clone https://github.com/rust-lang/rust-by-example
-$ cd rust-by-example
-$ cargo install mdbook
-$ mdbook build
-$ mdbook serve
+git clone https://github.com/rust-lang/rust-by-example
+cd rust-by-example
+cargo install mdbook
+mdbook build
+mdbook serve
 ```
 
 [install Rust]: https://www.rust-lang.org/tools/install
@@ -27,18 +24,53 @@ $ mdbook serve
 To be able to run the examples, you must be connected to the internet; you can
 read all content offline, however!
 
+**The following warnings can be ignored safely.**
+
+```text
+ WARN The command `mdbook-gettext` for preprocessor `gettext` was not found, but is marked as optional.
+```
+
+### Using translated version
+
+If there is a translated resource in `po/` directory, it can be specified through `MDBOOK_BOOK__LANGUAGE` like below:
+
+```bash
+git clone https://github.com/rust-lang/rust-by-example
+cd rust-by-example
+cargo install mdbook
+MDBOOK_BOOK__LANGUAGE=ja mdbook build
+MDBOOK_BOOK__LANGUAGE=ja mdbook serve
+```
+
 ## Contributing
 
 Please see the [CONTRIBUTING.md] file for more details.
 
 [CONTRIBUTING.md]: https://github.com/rust-lang/rust-by-example/blob/master/CONTRIBUTING.md
 
+## Translating
+
+Please see the [TRANSLATING.md] file for more details.
+
+[TRANSLATING.md]: https://github.com/rust-lang/rust-by-example/blob/master/TRANSLATING.md
+
+### Translating guide for each languages
+
+* Japanese/日本語: [TRANSLATING_JA.md]
+
+[TRANSLATING_JA.md]: https://github.com/rust-lang/rust-by-example/blob/master/TRANSLATING_JA.md
+
+* Chinese/中文: [TRANSLATING_ZH.md]
+
+[TRANSLATING_ZH.md]: https://github.com/rust-lang/rust-by-example/blob/master/TRANSLATING_ZH.md
+
 ## Translations to other languages
 
-* [Chinese](https://github.com/rust-lang-cn/rust-by-example-cn)
-* [Japanese](https://github.com/rust-lang-ja/rust-by-example-ja)
+* [Bulgarian](https://github.com/kberov/rust-by-example-bg)
 * [French](https://github.com/Songbird0/FR_RBE)
 * [Russian](https://github.com/ruRust/rust-by-example)
+* [Vietnamese](https://github.com/EyesCrypto-Insights/rust-by-example-vn)
+* [Portuguese](https://github.com/nazarepiedady/rust-com-exemplos)
 
 ## License
 

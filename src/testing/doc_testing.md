@@ -1,19 +1,21 @@
 # Documentation testing
 
 The primary way of documenting a Rust project is through annotating the source
-code. Documentation comments are written in [markdown] and support code
-blocks in them. Rust takes care about correctness, so these code blocks are
-compiled and used as tests.
+code. Documentation comments are written in
+[CommonMark Markdown specification][commonmark] and support code blocks in them.
+Rust takes care about correctness, so these code blocks are compiled and used
+as documentation tests.
 
 ```rust,ignore
 /// First line is a short summary describing function.
 ///
 /// The next lines present detailed documentation. Code blocks start with
 /// triple backquotes and have implicit `fn main()` inside
-/// and `extern crate <cratename>`. Assume we're testing `doccomments` crate:
+/// and `extern crate <cratename>`. Assume we're testing a `playground` library
+/// crate or using the Playground's Test action:
 ///
 /// ```
-/// let result = doccomments::add(2, 3);
+/// let result = playground::add(2, 3);
 /// assert_eq!(result, 5);
 /// ```
 pub fn add(a: i32, b: i32) -> i32 {
@@ -27,7 +29,7 @@ pub fn add(a: i32, b: i32) -> i32 {
 /// # Examples
 ///
 /// ```
-/// let result = doccomments::div(10, 2);
+/// let result = playground::div(10, 2);
 /// assert_eq!(result, 5);
 /// ```
 ///
@@ -37,7 +39,7 @@ pub fn add(a: i32, b: i32) -> i32 {
 ///
 /// ```rust,should_panic
 /// // panics on division by zero
-/// doccomments::div(10, 0);
+/// playground::div(10, 0);
 /// ```
 pub fn div(a: i32, b: i32) -> i32 {
     if b == 0 {
@@ -48,7 +50,8 @@ pub fn div(a: i32, b: i32) -> i32 {
 }
 ```
 
-Tests can be run with `cargo test`:
+Code blocks in documentation are automatically tested
+when running the regular `cargo test` command:
 
 ```shell
 $ cargo test
@@ -56,7 +59,7 @@ running 0 tests
 
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 
-   Doc-tests doccomments
+   Doc-tests playground
 
 running 3 tests
 test src/lib.rs - add (line 7) ... ok
@@ -73,16 +76,16 @@ the functionality, which is one of the most important
 [guidelines][question-instead-of-unwrap]. It allows using examples from docs as
 complete code snippets. But using `?` makes compilation fail since `main`
 returns `unit`. The ability to hide some source lines from documentation comes
-to the rescue: one may write `fn try_main() -> Result<(), ErrorType>`, hide it and
-`unwrap` it in hidden `main`. Sounds complicated? Here's an example:
+to the rescue: one may write `fn try_main() -> Result<(), ErrorType>`, hide it
+and `unwrap` it in hidden `main`. Sounds complicated? Here's an example:
 
 ```rust,ignore
 /// Using hidden `try_main` in doc tests.
 ///
 /// ```
-/// # // hidden lines start with `#` symbol, but they're still compileable!
+/// # // hidden lines start with `#` symbol, but they're still compilable!
 /// # fn try_main() -> Result<(), String> { // line that wraps the body shown in doc
-/// let res = try::try_div(10, 2)?;
+/// let res = playground::try_div(10, 2)?;
 /// # Ok(()) // returning from try_main
 /// # }
 /// # fn main() { // starting main that'll unwrap()
@@ -105,6 +108,6 @@ pub fn try_div(a: i32, b: i32) -> Result<i32, String> {
 * [API Guidelines][doc-nursery] on documentation guidelines
 
 [doc-nursery]: https://rust-lang-nursery.github.io/api-guidelines/documentation.html
-[markdown]: https://daringfireball.net/projects/markdown/
+[commonmark]: https://commonmark.org/
 [RFC505]: https://github.com/rust-lang/rfcs/blob/master/text/0505-api-comment-conventions.md
 [question-instead-of-unwrap]: https://rust-lang-nursery.github.io/api-guidelines/documentation.html#examples-use--not-try-not-unwrap-c-question-mark
